@@ -51,7 +51,6 @@
 
       ws.addEventListener('close', () => {
         queue = [];
-        overlayConnected = false;
 
         console.log('Trying to reconnect...');
         // Don't spam the server with retries.

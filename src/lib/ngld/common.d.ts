@@ -4,4 +4,3 @@ declare function removeOverlayListener(event: string, cb: (msg: any) => void);
 declare function callOverlayHandler(msg: any): Promise<any>;
 
 declare function startOverlayEvents();
-declare function IsOverlayConnected(): boolean;

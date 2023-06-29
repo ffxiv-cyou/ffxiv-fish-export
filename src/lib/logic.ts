@@ -1,22 +1,31 @@
 import FishData from "../assets/fish.json";
 import SpearFishData from "../assets/spearfish.json";
 
+const PACKET_LEN = 2464;
+const FISH_OFFSET = 0x062C;
+const FISH_LEN = 161;
+const FISH_SPOT_LEN = 38;
+const SPEAR_BEGIN = FISH_LEN + FISH_SPOT_LEN;
+const SPEAR_LEN = 34;
+const SPEAR_SPOT_LEN = 7;
+const FISH_PACKET_LEN = FISH_LEN + FISH_SPOT_LEN + SPEAR_LEN + SPEAR_SPOT_LEN;
+
 export function GetFishDataFromStr(raw: string) {
   let data = Hex2U8Array(raw);
   return GetFishData(data.subarray(0x20));
 }
 
 export function GetFishData(packet: Uint8Array): Uint8Array {
-  if (!packet || packet.length !== 2464)
+  if (!packet || packet.length !== PACKET_LEN)
     return new Uint8Array();
-  return packet.subarray(0x062C, 0x062C + 161 + 38 + 34 + 7)
+  return packet.subarray(FISH_OFFSET, FISH_OFFSET + FISH_PACKET_LEN)
 }
 
 function getFishesMask(fishPacket: Uint8Array) {
-  return fishPacket.subarray(0, 161);
+  return fishPacket.subarray(0, FISH_LEN);
 }
 function getSpearFishesMask(fishPacket: Uint8Array) {
-  return fishPacket.subarray(161 + 38, 161 + 38 + 34);
+  return fishPacket.subarray(SPEAR_BEGIN, SPEAR_BEGIN + SPEAR_LEN);
 }
 
 export function ExtractFishList(fishPacket: Uint8Array) {
