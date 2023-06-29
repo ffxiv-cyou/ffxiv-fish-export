@@ -1,6 +1,6 @@
 <script lang="ts">
   import "purecss/build/pure-min.css";
-  import { FishCount, GetFishData, GetFishDataFromStr, MergeFishData } from "./lib/logic";
+  import { ExtractFishList, GetFishData, GetFishDataFromStr, MergeFishData } from "./lib/logic";
   import "./lib/ngld/common";
   import { onMount, onDestroy } from "svelte";
   import { FFXIVIpc, FFXIVSegment } from "./lib/log_parse";
@@ -14,7 +14,7 @@
 
   $: rawFishData = fishData.length > 0 ? fishData : GetFishDataFromStr(inputData);
   $: generated = generateData(dataFrom, rawFishData);
-  $: fishCount = FishCount(rawFishData);
+  $: fishCount = ExtractFishList(rawFishData).length;
   
   function generateData(from: string, rawData: Uint8Array) {
     if (!from || !rawData.length) return;
@@ -49,6 +49,7 @@
     if (data.length > 0) {
       fishData = data;
       console.log(data);
+      console.log(ipc);
     }
   }
 
