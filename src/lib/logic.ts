@@ -1,9 +1,9 @@
 import FishData from "../assets/fish.json";
 import SpearFishData from "../assets/spearfish.json";
 
-const PACKET_LEN = 2464;
-const FISH_OFFSET = 0x062C;
-const FISH_LEN = 161;
+const PACKET_LEN = 2516; // 数据包长度，不包括 0x20 长的的包头
+const FISH_OFFSET = 0x0648; // 捕鱼数据偏移量，第一个 0xFE 出现的位置, 记得减去 0x20
+const FISH_LEN = 161; // 数据长度
 const FISH_SPOT_LEN = 38;
 const SPEAR_BEGIN = FISH_LEN + FISH_SPOT_LEN;
 const SPEAR_LEN = 34;
@@ -16,16 +16,39 @@ export function GetFishDataFromStr(raw: string) {
 }
 
 export function GetFishData(packet: Uint8Array): Uint8Array {
-  if (!packet || packet.length !== PACKET_LEN)
+  if (!packet || packet.length !== PACKET_LEN) {
     return new Uint8Array();
+  }
   return packet.subarray(FISH_OFFSET, FISH_OFFSET + FISH_PACKET_LEN)
 }
 
 function getFishesMask(fishPacket: Uint8Array) {
   return fishPacket.subarray(0, FISH_LEN);
 }
+function getFishSpotsMask(fishPacket: Uint8Array) {
+  return fishPacket.subarray(FISH_LEN, SPEAR_BEGIN);
+}
 function getSpearFishesMask(fishPacket: Uint8Array) {
   return fishPacket.subarray(SPEAR_BEGIN, SPEAR_BEGIN + SPEAR_LEN);
+}
+function getSpearFishSpotsMask(fishPacket: Uint8Array) {
+  return fishPacket.subarray(SPEAR_BEGIN + SPEAR_LEN, FISH_PACKET_LEN);
+}
+function bitCount(arr: Uint8Array) {
+  let count = 0;
+  arr.forEach(n => {
+    n = n - ((n >> 1) & 0x55)
+    n = (n & 0x33) + ((n >> 2) & 0x33)
+    count += (n + (n >> 4) & 0x0F);
+  });
+  return count;
+}
+
+export function FishCount(fishPacket: Uint8Array) {
+  return bitCount(getFishesMask(fishPacket));
+}
+export function SpearFishCount(fishPacket: Uint8Array) {
+  return bitCount(getSpearFishesMask(fishPacket));
 }
 
 export function ExtractFishList(fishPacket: Uint8Array) {
@@ -64,6 +87,7 @@ export function MergeFishData(origin: string, fishPacket: Uint8Array) {
 }
 
 export function Hex2U8Array(text: string): Uint8Array {
+  text = text.replaceAll(/[^0-9a-fA-F]/g, '');
   const array = new Uint8Array(text.length / 2);
   for (let i = 0; i < text.length; i += 2) {
     array[i / 2] = parseInt(text.substring(i, i + 2), 16);
