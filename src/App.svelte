@@ -91,7 +91,7 @@
       <span><a href="https://nga.178.com/read.php?tid=36771535" target="_blank">NGA</a></span>
     </div>
     <div class="status">
-      <span>数据版本: 6.5</span>
+      <span>数据版本: 6.51</span>
       <span>悬浮窗状态: {#if isOverlayMode}<span class="green">已连接</span>{:else}<span class="red">未连接</span>{/if}</span>
       <span>ACT日志行: {#if logLineStatus}<span class="green">有数据</span>{:else}<span class="red">无数据</span>{/if}</span>
       <span>网络包数据: {#if logLineDebug}<span class="green">有数据</span>{:else}<span class="red">无数据</span>{/if}</span>
