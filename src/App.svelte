@@ -17,6 +17,15 @@
   $: totalFishCount = ExtractFishList(rawFishData).length;
   $: fishCount = FishCount(rawFishData);
   $: spearFishCount = SpearFishCount(rawFishData);
+
+  let fileList: FileList = null;
+  $: if (fileList && fileList.length > 0) {
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      dataFrom = evt.target.result as string;
+    };
+    reader.readAsText(fileList[0]);
+  }
   
   function generateData(from: string, rawData: Uint8Array) {
     if (!from || !rawData.length) return;
@@ -34,6 +43,18 @@
         .writeText(generated)
         .then(() => alert("数据已复制到剪贴板"))
         .catch(() => alert("无法复制到剪贴板，请手动选中并使用Ctrl+C复制"))
+    }
+  }
+
+  function download() {
+    if (generated) {
+      const blob = new Blob([generated], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "fish-ffxiv-cyou-data.json";
+      a.click();
+      URL.revokeObjectURL(url);
     }
   }
 
@@ -99,7 +120,10 @@
     </div>
     <div class="pure-form pure-form-stacked">
       <div>
-        <label for="orig-data">鱼糕/钓鱼时钟导出数据: </label>
+        <label for="export-file" >选择鱼糕V2导出的文件：
+          <input type="file" style="display: inline-block;" id="export-file" bind:files={fileList}/>
+        </label>
+        <label for="orig-data">或手动粘贴鱼糕V1/钓鱼时钟导出数据: </label>
         <textarea
           id="orig-data"
           bind:value={dataFrom}
@@ -122,6 +146,7 @@
       </div>
       <div>
         <button class="pure-button" on:click={copy}>复制到剪贴板</button>
+        <button class="pure-button" on:click={download}>下载文件（用于鱼糕V2）</button>
       </div>
     </div>
 
