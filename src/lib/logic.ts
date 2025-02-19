@@ -1,9 +1,9 @@
 import FishData from "../assets/fish.json";
 import SpearFishData from "../assets/spearfish.json";
 
-const PACKET_LEN = 2760 - 0x20; // 数据包长度，不包括 0x20 长的的包头
-const FISH_OFFSET = 0x06D1; // 捕鱼数据偏移量，第一个 0xFE 出现的位置, 记得减去 0x20
-const FISH_LEN = 179; // 数据长度
+const PACKET_LEN = 2816 - 0x20; // 数据包长度，不包括 0x20 长的的包头
+const FISH_OFFSET = 0x06F8; // 捕鱼数据偏移量，第一个 0xFE 出现的位置, 记得减去 0x20
+const FISH_LEN = 180; // 数据长度
 const FISH_SPOT_LEN = 42;
 const SPEAR_BEGIN = FISH_LEN + FISH_SPOT_LEN;
 const SPEAR_LEN = 38;
