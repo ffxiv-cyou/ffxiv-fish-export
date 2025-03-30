@@ -99,7 +99,7 @@
     <h1>钓鱼笔记导出工具</h1>
     <h3>使用方法</h3>
     <ol>
-      <li>请<a href={url_local}>点击这里</a>尝试使用悬浮窗WS服务连接到悬浮窗。<br>如果悬浮窗状态显示未连接，也可以直接在ACT中添加悬浮窗，地址为 <a href={url} target="_blank">{url}</a>。</li>
+      <li>请<a href={url_local}>点击这里</a>尝试使用悬浮窗WS服务连接到悬浮窗。<br>如果悬浮窗状态显示未连接，也可以直接在ACT中添加悬浮窗，地址为： <a href={url} target="_blank">{url}</a></li>
       <li>打开鱼糕/钓鱼时钟，点击导入/导出，复制导出数据到本页的第一个框内；</li>
       <li>在ACT中，点击插件-FFXIV解析插件：</li>
       <ul>
@@ -115,6 +115,7 @@
       <span><a href="https://github.com/ffxiv-cyou/ffxiv-fish-export" target="_blank">Github</a></span>
       <span><a href="https://nga.178.com/read.php?tid=36771535" target="_blank">NGA</a></span>
     </div>
+    <hr>
     <div class="status">
       <span>数据版本: 7.1</span>
       <span>悬浮窗状态: {#if isOverlayMode}<span class="green">已连接</span>{:else}<span class="red">未连接</span>{/if}</span>
@@ -127,7 +128,7 @@
         <label for="export-file" >选择鱼糕V2导出的文件：
           <input type="file" style="display: inline-block;" id="export-file" bind:files={fileList}/>
         </label>
-        <label for="orig-data">或手动粘贴鱼糕V1/钓鱼时钟导出数据: </label>
+        <label for="orig-data">或，手动粘贴鱼糕V1/钓鱼时钟导出数据: </label>
         <textarea
           id="orig-data"
           bind:value={dataFrom}
@@ -140,13 +141,13 @@
         <textarea
           id="packet-data"
           bind:value={inputData}
-          placeholder="请填写抓包得到的数据"
+          placeholder="请填写抓包得到的数据。看到这行文字说明你当前没有连接到悬浮窗，请尝试手动添加悬浮窗。"
         />
       </div>
       {/if}
       <div>
         <label for="processed-data">用于导入的数据: </label>
-        <textarea id="processed-data" bind:value={generated} readonly />
+        <textarea id="processed-data" bind:value={generated} readonly placeholder="数据获取完毕后会在这里自动生成用于导入的数据。点击下方复制到剪贴板或者下载文件，或者直接手动复制导入即可。"/>
       </div>
       <div>
         <button class="pure-button" on:click={copy}>复制到剪贴板</button>
@@ -158,6 +159,14 @@
 </main>
 
 <style>
+  main {
+    color: #222;
+    background: #fcfcfc;
+    line-height: 1.5;
+  }
+  hr {
+    border: 1px dashed #999;
+  }
   .main {
     max-width: 1000px;
     margin: auto;
