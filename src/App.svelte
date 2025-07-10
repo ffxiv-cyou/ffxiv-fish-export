@@ -117,7 +117,7 @@
     </div>
     <hr>
     <div class="status">
-      <span>数据版本: 7.1</span>
+      <span>数据版本: 7.2</span>
       <span>悬浮窗状态: {#if isOverlayMode}<span class="green">已连接</span>{:else}<span class="red">未连接</span>{/if}</span>
       <span>ACT日志行: {#if logLineStatus}<span class="green">有数据</span>{:else}<span class="red">无数据</span>{/if}</span>
       <span>网络包数据: {#if logLineDebug}<span class="green">有数据</span>{:else}<span class="red">无数据</span>{/if}</span>
