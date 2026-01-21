@@ -111,7 +111,7 @@
       <li>现在，你可以关闭记录所有网络包选项，并删除已添加的悬浮窗了。</li>
     </ol>
     <div class="about">
-      <span>&copy; 2024-2025 <a href="https://ffxiv.cyou" target="_blank">狒狒西柚</a></span>
+      <span>&copy; 2024-2026 <a href="https://ffxiv.cyou" target="_blank">狒狒西柚</a></span>
       <span><a href="https://github.com/ffxiv-cyou/ffxiv-fish-export" target="_blank">Github</a></span>
       <span><a href="https://nga.178.com/read.php?tid=36771535" target="_blank">NGA</a></span>
     </div>
