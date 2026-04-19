@@ -97,6 +97,8 @@
 <main>
   <div class="main">
     <h1>钓鱼笔记导出工具</h1>
+    <div class="notice">欢迎使用我们的新产品：<a href="https://fisher.ffxiv.cyou/?utm_source=fish-exporter" target="_blank">杆时悬浮窗</a><br>
+      杆时悬浮窗不仅提供了杆时统计显示功能，同时也能帮你快速导出钓鱼笔记数据。</div>
     <h3>使用方法</h3>
     <ol>
       <li>请<a href={url_local}>点击这里</a>尝试使用悬浮窗WS服务连接到悬浮窗。<br>如果悬浮窗状态显示未连接，也可以直接在ACT中添加悬浮窗，地址为： <a href={url} target="_blank">{url}</a></li>
@@ -199,4 +201,13 @@
   a:visited {
     color: #06C;
   }
+
+  .notice {
+    border: #09F 2px solid;
+    background-color: #e0f7ff;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 5px;
+  }
+
 </style>
