@@ -4,7 +4,7 @@ import SpearFishData from "../assets/spearfish.json";
 const PACKET_LEN = 2952; // 数据包长度，不包括 0x20 长的的包头
 const FISH_OFFSET = 1905; // 捕鱼数据偏移量，第一个 0xFE 出现的位置, 记得减去 0x20
 const FISH_LEN = 191; // 数据长度
-const FISH_SPOT_LEN = 42;
+const FISH_SPOT_LEN = 43;
 const SPEAR_BEGIN = FISH_LEN + FISH_SPOT_LEN;
 const SPEAR_LEN = 38;
 const SPEAR_SPOT_LEN = 11;
@@ -70,7 +70,7 @@ export function ExtractFishList(fishPacket: Uint8Array) {
     let byte = spearfishes[i];
     for (let j = 0; j < 8; j++) {
       if (byte & (1 << j)) {
-        arr.push(SpearFishData[i * 8 + j]);
+        arr.push(SpearFishData.slice(1)[i * 8 + j]);
       }
     }
   }
